@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rescnfog>
+	<ipadinfo>
+		<mhweburl>https://mhweb.ericsson.se/TREditWeb/faces/tredit/tredit.xhtml?eriref=</mhweburl>
+		<mtQAstatus>https://ericoll2.internal.ericsson.com/sites/LTETVcom/Pages/MainTrackStatus.aspx</mtQAstatus>
+		<tracklist>
+
+		</tracklist>
+	</ipadinfo>
+	<rollist>  
+            <Security>security_files/slide0002333333</Security> 
+            <ScoreBoard>Excellence_Score_Board</ScoreBoard>  
+            <L3Reminder>L3_PG_Reminder</L3Reminder>
+	    <MBB_TR>TR_MBB</MBB_TR>
+	    <MTGuide_L14A>MT_Guideline_L14A</MTGuide_L14A>
+	    <Atest_MT>Atest_MT</Atest_MT>
+	    <Atest_88.7>Atest_88.7</Atest_88.7>
+            <RA_SAM>RA_SAM</RA_SAM>
+            <fest>fest</fest>
+		<Index>index</Index>
+	</rollist>
+	<monitorsrv>
+		<localserver>10.186.135.173</localserver>
+		<user>root</user>
+		<passwd>root</passwd>
+		<localpath>/opt/3party_software/apache/htdocs</localpath> 
+	</monitorsrv>
+	<displayctl>
+		<delaytime>20000</delaytime>
+		<transtime>2</transtime>
+		<trmaxno>3</trmaxno>
+	    <recmaxno>3</recmaxno>
+	</displayctl>
+	<trinfo>
+	    <hrheadingId>frm_field_heading_j_id_a2_notetextEditMode</hrheadingId>
+	</trinfo>
+</rescnfog>

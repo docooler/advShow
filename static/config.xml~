@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rescnfog>
+	<ipadinfo>
+		<mhweburl>https://mhweb.ericsson.se/TREditWeb/faces/tredit/tredit.xhtml?eriref=</mhweburl>
+		<mtQAstatus>https://ericoll2.internal.ericsson.com/sites/LTETVcom/Pages/MainTrackStatus.aspx</mtQAstatus>
+		<tracklist>
+			<FT_88_4_5>https://lte-dailytest.rnd.ki.sw.ericsson.se/n/up/listtrack/?bucket=846</FT_88_4_5>
+			<FT_88_4_4>https://lte-dailytest.rnd.ki.sw.ericsson.se/n/up/listtrack/?bucket=830</FT_88_4_4>
+			<MT_21_3>https://lte-dailytest.rnd.ki.sw.ericsson.se/n/up/listtrack/?bucket=801</MT_21_3>
+		</tracklist>
+	</ipadinfo>
+	<rollist>
+		<FTReport>L23_DAILY_ATEST_MONITOR_REPORT</FTReport>
+		<MTGuide>MT_Guideline</MTGuide>
+		<Security>security_files/slide0002</Security>
+		<L3Reminder>L3_PG_Reminder</L3Reminder>
+	    <MBB_TR>TR_MBB</MBB_TR>
+	    <MTGuide_L14A>MT_Guideline_L14A</MTGuide_L14A>
+	    <MTQA_Status>MTQA_Status</MTQA_Status>
+		<Index>index</Index>
+	</rollist>
+	<monitorsrv>
+		<localserver>10.186.135.173</localserver>
+		<user>root</user>
+		<passwd>root</passwd>
+		<localpath>/opt/3party_software/apache/htdocs</localpath> 
+	</monitorsrv>
+	<displayctl>
+		<delaytime>25000</delaytime>
+		<transtime>2</transtime>
+		<trmaxno>3</trmaxno>
+	    <recmaxno>3</recmaxno>
+	</displayctl>
+	<trinfo>
+	    <hrheadingId>frm_field_heading_j_id_a2_notetextEditMode</hrheadingId>
+	</trinfo>
+</rescnfog>

@@ -1,0 +1,5 @@
+<html><head><script language='JavaScript'>
+<!--
+var httpServer = 'http://10.186.135.173/';var address=new Array();address[0]=httpServer.concat('security_files/slide0002.html');address[1]=httpServer.concat('MT_Guideline_L14A.html');address[2]=httpServer.concat('RA_SAM.html');address[3]=httpServer.concat('Excellence_Score_Board.html');address[4]=httpServer.concat('L3_PG_Reminder.html');address[5]=httpServer.concat('TR_MBB.html');address[6]=httpServer.concat('Atest_88.7.html');address[7]=httpServer.concat('Atest_MT.html');address[8]=httpServer.concat('fest.html');var mywindow=window.open(address[0]);var i=1;setInterval('page(i)',20000);function page(j){if(j==address.length){i=0;}mywindow.location.href=address[i];i++;}
+// -->
+</script></head><body></body></html>

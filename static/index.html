@@ -1,0 +1,21 @@
+<html>
+<head>
+<script language='JavaScript'>
+var httpServer = 'http://127.0.0.1:8080/';
+var mywindow=window.open(httpServer.concat('display?index=0'));
+var i=1;
+setInterval('page(i)', 20000);
+function page(j){
+    if (j == 100000) {
+        i = 0;
+    }
+    var url = httpServer.concat('display?index=');
+    mywindow.location.href=url + j;
+    i++;
+}
+</script>
+</head>
+<body>
+    
+</body>
+</html>
