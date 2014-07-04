@@ -10,4 +10,10 @@
 		<type>static</type>
 		<file>2.htm</file>
 	</dissplay>
+	<dissplay>
+		<name>baidu</name>
+		<type>link</type>
+		<file>http://www.baidu.com/</file>
+	</dissplay>
+
 </content>
