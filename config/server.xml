@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <server>
     <monitorsrv>
-        <localserver>"10.186.135.173"</localserver>
+        <localserver>127.0.0.1</localserver>
+        <port>8080</port>
     </monitorsrv>
     <displayctl>
-        <delaytime>20000</delaytime>
+        <delaytime>20</delaytime>
         <transtime>2</transtime>
         <trmaxno>3</trmaxno>
         <recmaxno>3</recmaxno>

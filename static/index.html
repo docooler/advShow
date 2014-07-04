@@ -1,10 +1,10 @@
 <html>
 <head>
 <script language='JavaScript'>
-var httpServer = 'http://147.128.83.159:8080/';
+var httpServer = "http://{{.Monitor.Ip}}:{{.Monitor.Port}}/";
 var mywindow=window.open(httpServer.concat('display?index=0'));
 var i=1;
-setInterval('page(i)', 10000);
+setInterval('page(i)', {{.DspCtrl.Delaytime}});
 function page(j){
     if (j == 100000) {
         i = 0;
