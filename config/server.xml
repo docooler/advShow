@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+    <monitorsrv>
+        <localserver>"10.186.135.173"</localserver>
+    </monitorsrv>
+    <displayctl>
+        <delaytime>20000</delaytime>
+        <transtime>2</transtime>
+        <trmaxno>3</trmaxno>
+        <recmaxno>3</recmaxno>
+    </displayctl>
+</server>

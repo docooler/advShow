@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content>
+	<dissplay>
+		<name>pic</name>
+		<type>static</type>
+		<file>1.htm</file>
+	</dissplay>
+	<dissplay>
+		<name>pic</name>
+		<type>static</type>
+		<file>2.htm</file>
+	</dissplay>
+</content>
