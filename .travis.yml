@@ -1,9 +1,9 @@
 language: go
 go:
-	- 1.2
-	- release
-	- tip
+  - 1.2
+  - release
+  - tip
 
 script:
-	- go test -v ./src/adutils/
-	- go build ./src/main/
+  - go test -v ./src/adutils/
+  - go build ./src/main/
