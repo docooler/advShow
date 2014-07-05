@@ -3,3 +3,9 @@ go:
   - 1.2
   - release
   - tip
+notifications:
+  email:
+    recipients:
+      - yi01625@163.com
+    on_success: change
+    on_failure: always
