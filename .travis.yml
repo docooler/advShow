@@ -3,6 +3,7 @@ go:
   - 1.2
   - release
   - tip
+env: cd ./src
 
 script:
   - go test -v ./src/adutils/
