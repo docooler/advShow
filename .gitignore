@@ -1,4 +1,4 @@
 *.a
 main
-./pkg
-./bin
+pkg/
+bin/
