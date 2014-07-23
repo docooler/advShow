@@ -55,7 +55,9 @@ func get_tr_status_page_head(mh string, teamName string) (string, error) {
 	}
 	splitStr := "<TR><TD bgcolor=#a0a0a0>" + teamName + "</TD>"
 	splits := strings.Split(html, splitStr)
-	return splits[0], nil
+	heads := strings.Split(splits[0], "form")
+
+	return heads[0] + heads[2], nil
 }
 func get_tr_per_team(teamName string, html string) string {
 	splitStr := "<TR><TD bgcolor=#a0a0a0>" + teamName + "</TD>"
@@ -70,12 +72,18 @@ func get_tr_per_team(teamName string, html string) string {
 var teams = [...]string{"Rainbow", "Rainbow", "Rainbow", "Rainbow", "Rainbow"}
 
 func creat_tr_status_page(filename string) error {
+
+	if _, err := os.Stat(filename); err == nil {
+		log.Println(filename, " found file, remove it")
+		os.Remove(filename)
+	}
 	mh := "radio_product_mhos"
 	page, err := get_tr_status_page_head(mh, teams[0])
 	if err != nil {
 		ErrorAndExit(err)
 
 	}
+
 	for _, team := range teams {
 		// log.Println(team)
 		html, err := get_team_status_stub(mh, team)
