@@ -42,21 +42,63 @@ func get_team_status(mh string, teamName string) (string, error) {
 
 	return "", nil
 }
-
-func get_tr_per_team(teamName string) string {
-	splitStr := "<TR><TD bgcolor=#a0a0a0>" + teamName + "</TD>"
-	splitTail := "</TABLE></TD></TR>"
+func get_team_status_stub(mh string, teamName string) (string, error) {
 	html, err := ioutil.ReadFile("Rainbow.html")
 
-	if err != nil {
-		ErrorAndExit(err)
-	}
+	return string(html), err
+}
 
-	tables := strings.Split(string(html), splitStr)
-	// log.Println(tables)
+func get_tr_status_page_head(mh string, teamName string) (string, error) {
+	html, err := get_team_status_stub(mh, teamName)
+	if err != nil {
+		return "", err
+	}
+	splitStr := "<TR><TD bgcolor=#a0a0a0>" + teamName + "</TD>"
+	splits := strings.Split(html, splitStr)
+	return splits[0], nil
+}
+func get_tr_per_team(teamName string, html string) string {
+	splitStr := "<TR><TD bgcolor=#a0a0a0>" + teamName + "</TD>"
+	splitTail := "</TABLE></TD></TR>"
+
+	tables := strings.Split(html, splitStr)
 	trs := strings.Split(tables[1], splitTail)
 	tr := trs[0]
 	return splitStr + tr + splitTail
+}
+
+var teams = [...]string{"Rainbow", "Rainbow", "Rainbow", "Rainbow", "Rainbow"}
+
+func creat_tr_status_page(filename string) error {
+	mh := "radio_product_mhos"
+	page, err := get_tr_status_page_head(mh, teams[0])
+	if err != nil {
+		ErrorAndExit(err)
+
+	}
+	for _, team := range teams {
+		// log.Println(team)
+		html, err := get_team_status_stub(mh, team)
+		if err != nil {
+			ErrorAndExit(err)
+		}
+		tr := get_tr_per_team(team, html)
+		page = page + tr
+	}
+	page = page + "</TABLE></body></html>"
+	f, err := os.OpenFile(filename, os.O_CREATE|os.O_RDWR, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	_, err = f.WriteString(page)
+	if err != nil {
+		panic(err)
+	}
+
+	return nil
+
 }
 
 func ErrorAndExit(err error) {
@@ -72,8 +114,15 @@ func main() {
 	//     return
 	// }
 	// log.Println(body)
-	str := get_tr_per_team("Rainbow")
-	log.Println(str)
-	return
+	// html, err := ioutil.ReadFile("Rainbow.html")
+
+	// if err != nil {
+	// 	ErrorAndExit(err)
+	// }
+
+	// str := get_tr_per_team("Rainbow", string(html))
+	// log.Println(str)
+	// return
+	creat_tr_status_page("tmp.html")
 
 }
