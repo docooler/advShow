@@ -44,7 +44,7 @@ func GetAdvFilename(index string) (string, int, error) {
         return page.Display[findex].Link, 1, nil
     }
 
-    filename := "../../static/" + page.Display[findex].Link
+    filename := "../static/" + page.Display[findex].Link
 
     ret, _ := Exists(filename)
     if ret != true {

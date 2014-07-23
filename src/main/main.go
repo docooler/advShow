@@ -7,42 +7,49 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 )
 
 const (
-	STATIC_FILE = "../../static/"
+	STATIC_DIR = "../static/"
+    VIEW_DIR   = "../view/"
 )
-
+type home struct{
+    Title string
+} 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
+
 	r.ParseForm()
-	fmt.Println(r.Form) //这些信息是输出到服务器端的打印信息
-	fmt.Println("path", r.URL.Path)
-	fmt.Println("scheme", r.URL.Scheme)
-	fmt.Println(r.Form["url_long"])
-	for k, v := range r.Form {
-		fmt.Println("key:", k)
-		fmt.Println("val:", strings.Join(v, ""))
-	}
-	requestfile := STATIC_FILE + r.URL.Path
+    log.Println("Info:request file ", r.URL.Path)
 
-	ret, _ := adutils.Exists(requestfile)
-	if ret {
-		content, err := ioutil.ReadFile(requestfile)
-		if err == nil {
-			w.Write(content)
-			return
-		}
-	}
+    //visitor main page
+    if r.URL.Path == "/" {
+        title := home{Title: "advise show system "}
+        t, _ := template.ParseFiles(VIEW_DIR + "index.html")
+        t.Execute(w, title)
+        return 
+    }
 
-	fmt.Println("request file do not exist . End root request .Do nothing")
-	return
+    requestfile := STATIC_DIR + r.URL.Path
+    
+    ret,_ := adutils.Exists(requestfile)
+    if ret {
+        content, err := ioutil.ReadFile(requestfile)
+        if err == nil {
+            w.Write(content)
+            return 
+        }
+    }
+    
+    http.NotFound(w, r)
+    log.Println("Error: file not find. path=" , r.URL.Path)
+    return
+
 }
 
 func showHandler(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	if r.Method == "GET" {
-		t, err := template.ParseFiles("../../static/index.html")
+		t, err := template.ParseFiles(VIEW_DIR + "showCtrl.html")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -64,6 +71,10 @@ func showHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("End showHandler")
 		return
 	}
+}
+
+func fileHandler(w http.ResponseWriter, r *http.Request) {
+        http.StripPrefix("/file", http.FileServer(http.Dir(STATIC_DIR))).ServeHTTP(w, r)    
 }
 
 func displayHandler(w http.ResponseWriter, r *http.Request) {
@@ -110,6 +121,7 @@ func main() {
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/show", showHandler)
 	http.HandleFunc("/display", displayHandler)
+    http.HandleFunc("/file", fileHandler)
 
 	srv, err := adutils.ServerParse()
 

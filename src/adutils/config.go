@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	CONFIG_DIR  = "../../config/"
+	CONFIG_DIR  = "../config/"
 	SERVER_CFG  = "server.xml"
 	CONTENT_CFG = "content.xml"
 )

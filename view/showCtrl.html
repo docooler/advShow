@@ -1,0 +1,21 @@
+<html>
+<head>
+<script language='JavaScript'>
+var httpServer = "http://{{.Monitor.Ip}}:{{.Monitor.Port}}/";
+var mywindow=window.open(httpServer.concat('display?index=0'));
+var i=1;
+setInterval('page(i)', {{.DspCtrl.Delaytime}});
+function page(j){
+    if (j == 100000) {
+        i = 0;
+    }
+    var url = httpServer.concat('display?index=');
+    mywindow.location.href=url + j;
+    i++;
+}
+</script>
+</head>
+<body>
+    请允许浏览器弹出窗口
+</body>
+</html>
