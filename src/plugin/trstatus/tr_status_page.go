@@ -5,22 +5,26 @@ import (
 	"fmt"
 )
 
-func InitData() {
+func InitData() []TR.TrPerTeam {
 	teams := TR.Init()
-	for i, tm := range teams {
+	var tms = []TR.TrPerTeam{}
+	for _, tm := range teams {
+		tm.InitTRInfo()
 		//do not display the zero  tr team
-		if tm.TtlTrNr == 0 {
-			delete teams[i]
+		if tm.TtlTrNr != 0 {
+			tms = append(tms, tm)
 		}
-
-
 	}
+	return tms
 }
 func createPage() {
 
 }
 
 func main() {
-	InitData()
-	fmt.Println('end')
+	tms := InitData()
+	for _, tm := range tms {
+		fmt.Print(tm)
+	}
+	fmt.Println("end")
 }

@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-var teams = [...]string{"Rainbow", "Blossom", "Turbo", "Lightning", "Pulse"}
+var teams = [...]string{"Rainbow", "Rainbow", "Rainbow", "Rainbow", "Rainbow"}
 var mh = "radio_product_mhos"
 
 type TrPerTeam struct {
