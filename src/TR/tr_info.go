@@ -1,14 +1,14 @@
 package TR
 
 import (
-	"fmt"
-	"io/ioutil"
+	// "fmt"
+	// "io/ioutil"
 	"log"
-	"net/http"
-	"net/url"
 	"os"
-	"regexp"
-	"strings"
+	// "net/http"
+	// "net/url"
+	// "regexp"
+	// "strings"
 )
 
 const (
@@ -25,7 +25,7 @@ type TrInfo struct {
 	expire  int16
 }
 
-func New(url string) *TrInfo {
+func NewTrInfo(url string) *TrInfo {
 	return &TrInfo{
 		Url: url,
 	}
@@ -33,10 +33,10 @@ func New(url string) *TrInfo {
 func (tr *TrInfo) Init() error {
 	html, err := getHtmlPage(tr.Url)
 	CheckAndExit(err, "getHtmlPage "+tr.Url)
-	tr.Level = paraseLevel(html)
+	tr.Level = parseLevel(html)
 	tr.OwnerId = parseOwner(html)
 	tr.email = getEmail(tr.OwnerId)
-
+	return nil
 }
 
 //TODO
@@ -62,7 +62,7 @@ func getHtmlPage(url string) (string, error) {
 //TODO
 func CheckAndExit(err error, addInfo string) {
 	if nil != err {
-		log.Println(addInfo + " " + err)
+		log.Println(addInfo, err)
 		os.Exit(1)
 	}
 }

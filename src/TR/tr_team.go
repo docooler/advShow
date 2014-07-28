@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
+	// "os"
 	"regexp"
 	"strings"
 )
@@ -19,8 +19,8 @@ type TrPerTeam struct {
 	ExTrNr   int16
 	MtiTrNr  int16
 	IntTrNr  int16
-	TtlTrNr  int16
-	Trs      []TrInfo
+	TtlTrNr  int
+	Trs      []*TrInfo
 }
 
 func Init() []TrPerTeam {
@@ -35,13 +35,14 @@ func Init() []TrPerTeam {
 func (t *TrPerTeam) InitTRInfo() error {
 	urls := get_tr_urls(t.TeamName)
 	t.TtlTrNr = len(urls)
-	t.Trs = make([]TrInfo, t.TtlTrNr)
+	t.Trs = make([]*TrInfo, t.TtlTrNr)
 	for i, url := range urls {
-		trinfo = NewTrInfo(url)
+		trinfo := NewTrInfo(url)
 		trinfo.Init()
 		t.count_tr_status(trinfo.Level)
 		t.Trs[i] = trinfo
 	}
+	return nil
 }
 func (t *TrPerTeam) count_tr_status(trlevel int16) {
 	switch trlevel {
@@ -134,7 +135,7 @@ func get_tr_urls(teamName string) (urls []string) {
 
 	html, err := get_team_status_html_stub("radio_product_mhos", teamName)
 	if err != nil {
-		ErrorAndExit(err)
+		CheckAndExit(err, "get_team_status_html_stub")
 	}
 	table := get_tr_per_team(teamName, html)
 	targets := strings.Split(table, " target='_blank'>")
