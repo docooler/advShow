@@ -11,6 +11,29 @@ import (
 	"strings"
 )
 
+const (
+	External_TR = iota
+	MTI_TR
+	Internal_TR
+)
+
+type TrInfo struct {
+	Url     string
+	Level   int16
+	OwnerId string
+	email   string
+	expire  int16
+}
+
+type TrPerTeam struct {
+	TeamName string
+	ExTrNr   int16
+	MtiTrNr  int16
+	IntTrNr  int16
+	ttlTrNr  int16
+	Trs      []TrInfo
+}
+
 func get_team_status(mh string, teamName string) (string, error) {
 
 	v := url.Values{}
