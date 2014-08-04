@@ -16,6 +16,21 @@ const (
 type home struct{
     Title string
 } 
+func ext2Mime(ext string) string {
+    switch ext {
+    case ".css":
+        return "text/css"
+    case ".js":
+        return "text/js"
+    case ".html":
+        return "text/html"
+    default:
+        return ""
+    }
+    return "*/*"
+
+}
+
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
@@ -35,6 +50,12 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
     if ret {
         content, err := ioutil.ReadFile(requestfile)
         if err == nil {
+            mType := ext2Mime(requestfile)
+            if mType == "text/js" {
+                w.Header().Set("Content-Type", mType)
+            }
+            w.Header().Set("Cache-Control", "public, max-age=86400")
+
             w.Write(content)
             return 
         }
