@@ -1,6 +1,7 @@
 package TR
 
 import (
+<<<<<<< HEAD
 	// "fmt"
 	"io/ioutil"
 	"log"
