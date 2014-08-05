@@ -1,7 +1,6 @@
 package TR
 
 import (
-<<<<<<< HEAD
 	// "fmt"
 	"io/ioutil"
 	"log"
@@ -21,7 +20,7 @@ type TrPerTeam struct {
 	MtiTrNr  int
 	IntTrNr  int
 	TtlTrNr  int
-	Trs      []*TrInfo
+	Trs      []TrInfo
 }
 
 func Init() []TrPerTeam {
@@ -36,19 +35,21 @@ func Init() []TrPerTeam {
 func (t *TrPerTeam) InitTRInfo(needTrDetail int) error {
 	urls, extrNr := get_tr_urls(t.TeamName)
 	t.TtlTrNr = len(urls)
-	
+
 	if needTrDetail == 0 {
-		t.ExTrNr  = extrNr
+		t.ExTrNr = extrNr
 		t.IntTrNr = t.TtlTrNr - extrNr
 		return nil
 	}
 	//不需要解析tr的具体信息
-	t.Trs = make([]*TrInfo, t.TtlTrNr)
+	t.Trs = make([]TrInfo, t.TtlTrNr)
 	for i, url := range urls {
 		trinfo := NewTrInfo(url)
 		trinfo.Init()
 		t.count_tr_status(trinfo.Level)
-		t.Trs[i] = trinfo
+		t.Trs[i] = trinfo.Clone()
+		// log.Println("InitTRInfo", trinfo.Clone())
+		// t.Trs[i] = trinfo
 	}
 	return nil
 }

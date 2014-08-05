@@ -30,6 +30,15 @@ func NewTrInfo(url string) *TrInfo {
 		Url: url,
 	}
 }
+func (tr TrInfo) Clone() TrInfo {
+	return TrInfo{
+		Url:     tr.Url,
+		Level:   tr.Level,
+		OwnerId: tr.OwnerId,
+		Email:   tr.Email,
+		Expire:  tr.Expire,
+	}
+}
 func (tr *TrInfo) Init() error {
 	html, err := getHtmlPage(tr.Url)
 	CheckAndExit(err, "getHtmlPage "+tr.Url)

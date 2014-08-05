@@ -6,64 +6,67 @@ import (
 	"html/template"
 	"io/ioutil"
 	"log"
+	"mime"
 	"net/http"
 )
 
 const (
 	STATIC_DIR = "../static/"
-    VIEW_DIR   = "../view/"
+	VIEW_DIR   = "../view/"
 )
-type home struct{
-    Title string
-} 
+
+type home struct {
+	Title string
+}
+
 func ext2Mime(ext string) string {
-    switch ext {
-    case ".css":
-        return "text/css"
-    case ".js":
-        return "text/js"
-    case ".html":
-        return "text/html"
-    default:
-        return ""
-    }
-    return "*/*"
+	switch ext {
+	case ".css":
+		return "text/css"
+	case ".js":
+		return "text/js"
+	case ".html":
+		return "text/html"
+	default:
+		return ""
+	}
+	return "*/*"
 
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 	r.ParseForm()
-    log.Println("Info:request file ", r.URL.Path)
+	log.Println("Info:request file ", r.URL.Path)
 
-    //visitor main page
-    if r.URL.Path == "/" {
-        title := home{Title: "advise show system "}
-        t, _ := template.ParseFiles(VIEW_DIR + "index.html")
-        t.Execute(w, title)
-        return 
-    }
+	//visitor main page
+	if r.URL.Path == "/" {
+		title := home{Title: "advise show system "}
+		t, _ := template.ParseFiles(VIEW_DIR + "index.html")
+		t.Execute(w, title)
+		return
+	}
 
-    requestfile := STATIC_DIR + r.URL.Path
-    
-    ret,_ := adutils.Exists(requestfile)
-    if ret {
-        content, err := ioutil.ReadFile(requestfile)
-        if err == nil {
-            mType := ext2Mime(requestfile)
-            if mType == "text/js" {
-                w.Header().Set("Content-Type", mType)
-            }
-            w.Header().Set("Cache-Control", "public, max-age=86400")
+	requestfile := STATIC_DIR + r.URL.Path
 
-            w.Write(content)
-            return 
-        }
-    }
-    
-    http.NotFound(w, r)
-    log.Println("Error: file not find. path=" , r.URL.Path)
-    return
+	ret, _ := adutils.Exists(requestfile)
+	if ret {
+		content, err := ioutil.ReadFile(requestfile)
+		if err == nil {
+			mType := ext2Mime(requestfile)
+			if mType == "text/js" {
+				w.Header().Set("Content-Type", mType)
+			}
+			w.Header().Set("Cache-Control", "public, max-age=86400")
+
+			w.Write(content)
+			return
+		}
+	}
+
+	http.NotFound(w, r)
+	log.Println("Error: file not find. path=", r.URL.Path)
+	return
 
 }
 
@@ -95,7 +98,7 @@ func showHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func fileHandler(w http.ResponseWriter, r *http.Request) {
-        http.StripPrefix("/file", http.FileServer(http.Dir(STATIC_DIR))).ServeHTTP(w, r)    
+	http.StripPrefix("/file", http.FileServer(http.Dir(STATIC_DIR))).ServeHTTP(w, r)
 }
 
 func displayHandler(w http.ResponseWriter, r *http.Request) {
@@ -142,7 +145,7 @@ func main() {
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/show", showHandler)
 	http.HandleFunc("/display", displayHandler)
-    http.HandleFunc("/file", fileHandler)
+	http.HandleFunc("/file", fileHandler)
 
 	srv, err := adutils.ServerParse()
 
